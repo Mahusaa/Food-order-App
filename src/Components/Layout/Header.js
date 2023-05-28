@@ -6,7 +6,6 @@ import HeaderCartButton from './HeaderCartButton';
 const Header = (props) => {
   const cartButtonHandler = () => {
     props.onShowCart()
-    console.log("Button got clicked");
   };
 
   return (
