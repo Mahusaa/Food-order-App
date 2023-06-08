@@ -34,8 +34,9 @@ const Checkout = (props) => {
         city: cityIsValid,
     })
     const formIsValid = nameIsValid && streetIsValid && postalIsValid && cityIsValid;
+    
 
-    if (formIsValid) {
+    if (!formIsValid) {
         return;
     };
 
@@ -73,7 +74,7 @@ const Checkout = (props) => {
         <button type='button' onClick={props.onCancel}>
           Cancel
         </button>
-        <button className={classes.submit} >Confirm</button>
+        <button className={classes.submit}>Confirm</button>
       </div>
     </form>
   );
