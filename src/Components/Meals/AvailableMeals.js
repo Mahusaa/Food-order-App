@@ -2,49 +2,34 @@ import React from "react";
 import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card/Card";
 import MealItem from "./MealItem/MealItem";
+import useDataFetcher from "../../hooks/useDataFetcher";
 
-const DUMMY_MEALS = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
-    <MealItem
-      id={meal.id}
-      key={meal.id}
-      name={meal.name}
-      description={meal.description}
-      price={meal.price}
-    />
-  ));
+  const {data, isLoading, error}= useDataFetcher("https://fetch-meals-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json", "GET");
+  console.log(data);
+  let content = null
+  if (isLoading){
+    content = <p>is Loading...</p>
+  }else if (error) {
+    content = <p>data not found, {error}</p>
+  } else if (data) {
+    const mealsList = data.map((meal) => (
+      <MealItem
+        id={meal.id}
+        key={meal.id}
+        name={meal.name}
+        description={meal.description}
+        price={meal.price}
+      />
+    ));
+    content = <ul>{mealsList}</ul>
+  };
+  
+  
   return (
     <section className={classes.meals}>
-      <Card>
-        <ul>{mealsList}</ul>
-      </Card>
+      <Card>{content}</Card>
     </section>
   );
 };

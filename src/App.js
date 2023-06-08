@@ -23,6 +23,6 @@ function App() {
     </main>
     </CartProvider>
   );
-}
+};
 
 export default App;
