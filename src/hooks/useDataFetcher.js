@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useDataFetcher = (url, method) => {
+const useDataFetcher = (url, method, body, userData, orderedItems) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,6 +16,10 @@ const useDataFetcher = (url, method) => {
           headers: {
             "Content-Type": "application/json",
           },
+          body: body ? JSON.stringify({
+            user: userData,
+            orderedItems: orderedItems,
+          }) : undefined
         };
 
         const response = await fetch(url, requestOptions);
@@ -39,7 +43,7 @@ const useDataFetcher = (url, method) => {
     };
 
     fetchData();
-  }, [url, method]);
+  }, [url, method, body, orderedItems, userData]);
 
   return { data, isLoading, error };
 };

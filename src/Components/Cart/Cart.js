@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
-import Modal from "../UI/Modal/Modal";
-import classes from "./Cart.module.css";
+import React, { useContext, useState } from "react";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
+import Modal from "../UI/Modal/Modal";
+import classes from "./Cart.module.css";
 import Checkout from "./Checkout";
 
 const Cart = (props) => {
@@ -36,7 +36,14 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-  const modalAction = 
+  const onSubmitHandler = (userData) => {
+    fetch("https://fetch-meals-default-rtdb.asia-southeast1.firebasedatabase.app/order.json", {method: 'POST', body: JSON.stringify({
+      user: userData,
+      orderedItems: cartCtx.items
+    })})
+  };
+
+  const modalAction = (
     <div className={classes.actions}>
       <button className={classes["button--alt"]} onClick={props.onHideCart}>
         Close
@@ -47,7 +54,8 @@ const Cart = (props) => {
         </button>
       )}
     </div>
-  
+  );
+
   return (
     <Modal onHideCart={props.onHideCart}>
       {cartItems}
@@ -55,7 +63,7 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout onCancel= {props.onHideCart}/>}
+      {isCheckout && <Checkout onSubmit={onSubmitHandler} onCancel={props.onHideCart} />}
       {!isCheckout && modalAction}
     </Modal>
   );
