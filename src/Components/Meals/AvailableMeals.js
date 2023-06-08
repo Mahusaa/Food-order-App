@@ -10,7 +10,7 @@ const AvailableMeals = () => {
   console.log(data);
   let content = null
   if (isLoading){
-    content = <p>is Loading...</p>
+    content = <p className={classes.isLoading}>is Loading...</p>
   }else if (error) {
     content = <p>data not found, {error}</p>
   } else if (data) {

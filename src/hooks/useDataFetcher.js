@@ -39,7 +39,7 @@ const useDataFetcher = (url, method) => {
     };
 
     fetchData();
-  }, []);
+  }, [url, method]);
 
   return { data, isLoading, error };
 };
