@@ -23,13 +23,13 @@ const AvailableMeals = () => {
         price={meal.price}
       />
     ));
-    content = <ul>{mealsList}</ul>
+    content = <Card><ul>{mealsList}</ul></Card>
   };
   
   
   return (
     <section className={classes.meals}>
-      <Card>{content}</Card>
+      {content}
     </section>
   );
 };

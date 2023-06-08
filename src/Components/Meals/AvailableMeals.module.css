@@ -13,6 +13,7 @@
 
   .isLoading {
     text-align: center;
+    color: aliceblue;
   }
   
   @keyframes meals-appear {
